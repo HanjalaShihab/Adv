@@ -6,28 +6,14 @@
       "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/dist/assets/$1"
-    },
-    {
-      "src": "^/.*\\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2|eot|ttf)$",
-      "dest": "/dist$0"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/dist/index.html"
-    }
-  ],
   "rewrites": [
     {
-      "source": "/:path*",
-      "destination": "/dist/index.html"
+      "source": "/api/(.*)",
+      "destination": "/server.js"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
