@@ -29,16 +29,13 @@ function Admin() {
     try {
       const response = await fetch(buildApiUrl('/api/cases'))
       if (!response.ok) {
-        console.error('Failed to load cases:', response.status)
         return
       }
       const data = await response.json()
-      console.log('Cases loaded:', data)
       if (Array.isArray(data)) {
         setCases(data)
       }
     } catch (error) {
-      console.error('Error loading cases:', error)
       setStatus('কেস লোড করা যায়নি।')
     }
   }
@@ -95,15 +92,12 @@ function Admin() {
     event.preventDefault()
     setStatus('')
 
-    console.log('Form submitted:', { formValues, editingId })
-
     try {
       const url = editingId 
         ? buildApiUrl(`/api/cases/${editingId}`)
         : buildApiUrl('/api/cases')
       
       const method = editingId ? 'PUT' : 'POST'
-      console.log('Request:', { method, url, body: formValues })
 
       const response = await fetch(url, {
         method,
@@ -114,30 +108,24 @@ function Admin() {
         body: JSON.stringify(formValues),
       })
 
-      console.log('Response status:', response.status, 'ok:', response.ok)
-
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
-        console.error('Error response:', errorData)
         setStatus(editingId ? 'কেস আপডেট করা যায়নি।' : 'কেস যোগ করা যায়নি।')
         return
       }
 
       const responseData = await response.json()
-      console.log('Success response:', responseData)
 
       setFormValues(emptyCase)
       setEditingId(null)
       setStatus(editingId ? 'কেস আপডেট হয়েছে।' : 'কেস যোগ হয়েছে।')
       await loadCases()
-      console.log('Cases reloaded after submission')
     } catch (error) {
       setStatus('কেস সংরক্ষণ করা যায়নি।')
     }
   }
 
   const handleEditCase = (caseItem) => {
-    console.log('Edit clicked:', caseItem)
     setFormValues({
       title: caseItem.title,
       category: caseItem.category,
@@ -146,7 +134,6 @@ function Admin() {
     })
     setEditingId(caseItem.id)
     setStatus('')
-    console.log('Editing mode activated, ID:', caseItem.id)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 

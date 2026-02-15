@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { buildApiUrl } from '../api.js'
 import { caseHighlights } from '../data/portfolioData.js'
 
 function Projects() {
+  const navigate = useNavigate()
   const [cases, setCases] = useState(caseHighlights)
   const [activeCategory, setActiveCategory] = useState('সব')
   const [searchTerm, setSearchTerm] = useState('')
@@ -47,27 +49,19 @@ function Projects() {
     
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase().trim()
-      console.log('Searching for:', term, 'in', filtered.length, 'cases')
       filtered = filtered.filter((project) => {
         const title = (project.title || '').toLowerCase()
         const summary = (project.summary || '').toLowerCase()
         const outcome = (project.outcome || '').toLowerCase()
         const category = (project.category || '').toLowerCase()
         
-        const matches = (
+        return (
           title.includes(term) ||
           summary.includes(term) ||
           outcome.includes(term) ||
           category.includes(term)
         )
-        
-        if (matches) {
-          console.log('Match found:', project.title)
-        }
-        
-        return matches
       })
-      console.log('Filtered results:', filtered.length)
     }
     
     return filtered
@@ -110,10 +104,7 @@ function Projects() {
               className="search-input"
               placeholder="মামলা খুঁজুন..."
               value={searchTerm}
-              onChange={(e) => {
-                console.log('Search input changed:', e.target.value)
-                setSearchTerm(e.target.value)
-              }}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             {searchTerm && (
               <button
@@ -176,7 +167,11 @@ function Projects() {
                     </svg>
                     <span>{project.outcome}</span>
                   </div>
-                  <button className="case-details-btn" type="button">
+                  <button 
+                    className="case-details-btn" 
+                    type="button"
+                    onClick={() => navigate(`/case/${project.id || encodeURIComponent(project.title)}`)}
+                  >
                     বিস্তারিত
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <line x1="5" y1="12" x2="19" y2="12"></line>
