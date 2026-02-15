@@ -1,97 +1,178 @@
+export const profile = {
+  name: 'Adv. Gazi Nazrul Islam Manik',
+  nickname: 'Manik',
+  title: 'অ্যাডভোকেট ও আইন পরামর্শক',
+  location: 'লোকেশন আপডেট হবে',
+  languages: ['বাংলা', 'ইংরেজি'],
+}
+
 export const heroStats = [
-  { label: 'Years building products', value: '9+' },
-  { label: 'Launches shipped', value: '38' },
-  { label: 'Teams supported', value: '12' },
+  { label: 'কর্মজীবনের বছর', value: '১২+' },
+  { label: 'মামলা পরিচালনা', value: '৫২০+' },
+  { label: 'ক্লায়েন্ট সন্তুষ্টি', value: '৯৭%' },
 ]
 
-export const services = [
+export const practiceAreas = [
   {
-    title: 'Product Vision',
+    title: 'সিভিল ও কমার্শিয়াল মামলা',
     description:
-      'Translate messy inputs into a clear, confident roadmap that teams can rally around.',
+      'বিরোধ, চুক্তি ও পাওনা আদায়ে কৌশলভিত্তিক প্রতিনিধিত্ব।',
   },
   {
-    title: 'Design Systems',
-    description:
-      'Create adaptable libraries with tone, tokens, and templates that scale gracefully.',
+    title: 'ফৌজদারি মামলা',
+    description: 'জামিন, বিচার ও আপিলে লক্ষ্যভিত্তিক আইনি সহায়তা।',
   },
   {
-    title: 'Interactive Frontends',
+    title: 'পারিবারিক ও উত্তরাধিকার',
     description:
-      'Ship polished, responsive interfaces with motion that feels intentional.',
+      'সংবেদনশীল পারিবারিক, বিবাহ বিচ্ছেদ ও উত্তরাধিকার বিষয়ে স্পষ্ট পরামর্শ।',
+  },
+  {
+    title: 'সম্পত্তি ও জমি',
+    description:
+      'টাইটেল যাচাই, জমি বিরোধ ও সম্পত্তি ডকুমেন্টেশনে সহায়তা।',
+  },
+  {
+    title: 'করপোরেট ও কমপ্লায়েন্স',
+    description:
+      'কোম্পানি গঠন, চুক্তি, নিয়ন্ত্রক ফাইলিং ও পরামর্শ প্রদান।',
+  },
+  {
+    title: 'রিট ও সাংবিধানিক বিষয়',
+    description:
+      'অধিকারভিত্তিক মামলা ও প্রশাসনিক প্রতিকার।',
   },
 ]
 
-export const projects = [
+export const caseHighlights = [
   {
-    title: 'Harborline Logistics',
-    category: 'Web Experiences',
+    title: 'কমার্শিয়াল চুক্তি বিরোধ',
+    category: 'সিভিল',
     summary:
-      'Reframed dispatch workflows with a live status canvas and rapid quoting tools.',
-    impact: '32% faster scheduling',
+      'মূল সরবরাহকারী সম্পর্ক রক্ষা করে সমঝোতাভিত্তিক নিষ্পত্তি।',
+    outcome: 'বকেয়া আদায় সম্পন্ন',
   },
   {
-    title: 'Northwind Capital',
-    category: 'Brand Systems',
+    title: 'হাইকোর্ট জামিন মামলা',
+    category: 'ফৌজদারি',
     summary:
-      'Unified 14 dashboards into a modular design system with clear hierarchy.',
-    impact: '1.8x higher adoption',
+      'প্রমাণভিত্তিক দ্রুত জামিন কৌশল প্রয়োগ।',
+    outcome: '১০ দিনের মধ্যে জামিন',
   },
   {
-    title: 'Museo Labs',
-    category: 'Web Experiences',
+    title: 'সম্পত্তির টাইটেল যাচাই',
+    category: 'সম্পত্তি',
     summary:
-      'Immersive storytelling site with layered motion and editorial layouts.',
-    impact: 'Awarded Site of the Month',
+      'রিস্ক কমিয়ে পূর্ণাঙ্গ ডিউ ডিলিজেন্স সম্পন্ন।',
+    outcome: 'নিরাপদভাবে সম্পাদন',
   },
   {
-    title: 'Pulse Clinic',
-    category: 'Design Ops',
+    title: 'করপোরেট কমপ্লায়েন্স অডিট',
+    category: 'করপোরেট',
     summary:
-      'Created intake flows, microcopy, and visual logic for high-volume clinics.',
-    impact: '26% fewer drop offs',
+      'ফাইলিং ও নীতিমালা আপডেট করে অডিট প্রস্তুতি।',
+    outcome: 'কোনো অনিয়ম পাওয়া যায়নি',
   },
   {
-    title: 'Eclipse Studio',
-    category: 'Brand Systems',
+    title: 'পারিবারিক সমঝোতা চুক্তি',
+    category: 'পারিবারিক',
     summary:
-      'Introduced a tactile identity system for a cross-platform content suite.',
-    impact: '57% faster onboarding',
+      'স্বচ্ছ সম্পদ বণ্টন ও ডকুমেন্টেশনের মাধ্যমে সমঝোতা।',
+    outcome: 'সৌহার্দ্যপূর্ণ নিষ্পত্তি',
   },
   {
-    title: 'Continuum AI',
-    category: 'Design Ops',
+    title: 'প্রশাসনিক রিট',
+    category: 'সাংবিধানিক',
     summary:
-      'Mapped new AI governance flows into digestible, guided experiences.',
-    impact: 'Audit time cut by 40%',
+      'অবৈধ প্রশাসনিক সিদ্ধান্তের বিরুদ্ধে রিট প্রস্তুত।',
+    outcome: 'অন্তর্বর্তীকালীন আদেশ',
+  },
+]
+
+export const testimonials = [
+  {
+    quote: 'মানিক সাহেব শান্তভাবে পুরো মামলাটি পরিচালনা করেছেন।',
+    name: 'ক্লায়েন্ট এ (প্লেসহোল্ডার)',
+    detail: 'সিভিল মামলা',
+  },
+  {
+    quote: 'প্রয়োজনের সময় দ্রুত ও স্পষ্ট আপডেট পেয়েছি।',
+    name: 'ক্লায়েন্ট বি (প্লেসহোল্ডার)',
+    detail: 'করপোরেট পরামর্শ',
+  },
+  {
+    quote: 'প্রতিটি ধাপে ভরসা পেয়েছি, ফলাফলও সন্তোষজনক।',
+    name: 'ক্লায়েন্ট সি (প্লেসহোল্ডার)',
+    detail: 'সম্পত্তি বিষয়ক',
+  },
+]
+
+export const credentials = [
+  {
+    label: 'বার সদস্যতা',
+    value: 'বাংলাদেশ বার কাউন্সিল (আপডেট হবে)',
+  },
+  {
+    label: 'শিক্ষাগত যোগ্যতা',
+    value: 'এলএলবি, এলএলএম (আপডেট হবে)',
+  },
+  {
+    label: 'অ্যাসোসিয়েশন',
+    value: 'বাংলাদেশ বার অ্যাসোসিয়েশন (আপডেট হবে)',
   },
 ]
 
 export const timeline = [
   {
-    year: '2026',
-    title: 'Principal Product Designer, Northwind',
-    summary: 'Led strategy for new analytics suite and team rituals.',
+    year: '২০২৫',
+    title: 'সিনিয়র অ্যাডভোকেট, প্রাইভেট প্র্যাকটিস',
+    summary: 'বিভিন্ন প্র্যাকটিস এরিয়ায় মামলা ও পরামর্শ কার্যক্রম প্রসারিত।',
   },
   {
-    year: '2024',
-    title: 'Design Lead, Harborline',
-    summary: 'Rebuilt the logistics platform and launched a global system.',
+    year: '২০২১',
+    title: 'অ্যাসোসিয়েট অ্যাডভোকেট',
+    summary: 'ট্রায়াল প্রস্তুতি, ফাইলিং ও ক্লায়েন্ট পরামর্শ।',
   },
   {
-    year: '2021',
-    title: 'Senior Designer, Museo',
-    summary: 'Explored immersive web narratives with a tight creative team.',
+    year: '২০১৭',
+    title: 'লিগ্যাল ইন্টার্ন',
+    summary: 'রিসার্চ, ড্রাফটিং এবং মামলা প্রস্তুতিতে সহায়তা।',
   },
 ]
 
-export const skills = [
-  'Systems Thinking',
-  'Rapid Prototyping',
-  'Motion Direction',
-  'Information Design',
-  'Accessibility',
-  'Design Strategy',
-  'React UI',
-  'Team Coaching',
+export const values = [
+  'শান্ত ও কৌশলগত আইনি পরামর্শ।',
+  'স্বচ্ছ যোগাযোগ ও সময়সীমা।',
+  'ডকুমেন্টেশনে নির্ভুলতা।',
+  'ক্লায়েন্টের গোপনীয়তা ও আস্থা।',
 ]
+
+export const faqs = [
+  {
+    question: 'পরামর্শ প্রক্রিয়া কীভাবে কাজ করে?',
+    answer:
+      'মামলার বিবরণ ও ডকুমেন্ট দিন। এরপর প্রয়োজনীয় পদক্ষেপ জানানো হবে।',
+  },
+  {
+    question: 'জরুরি আইনগত সহায়তা কি দেন?',
+    answer:
+      'হ্যাঁ, জরুরি বিষয় দ্রুত দেখা হয়। আদালতের সময়সূচি অনুযায়ী উত্তর সময় নির্ধারিত হয়।',
+  },
+  {
+    question: 'কোন তথ্য বা ডকুমেন্ট লাগবে?',
+    answer:
+      'চুক্তি, নোটিশ, আদেশসহ সংশ্লিষ্ট গুরুত্বপূর্ণ ডকুমেন্ট আনুন।',
+  },
+  {
+    question: 'করপোরেট রিটেইনার নেন?',
+    answer:
+      'হ্যাঁ, দীর্ঘমেয়াদি পরামর্শ ও কমপ্লায়েন্স সাপোর্ট চুক্তিভিত্তিক পাওয়া যায়।',
+  },
+]
+
+export const contactInfo = {
+  email: 'contact@maniklaw.com',
+  phone: '+৮৮০ ০০০০ ০০০০০০',
+  office: 'অফিস ঠিকানা আপডেট হবে',
+  hours: 'রবি-বৃহ, ১০:০০ - ১৮:০০',
+}

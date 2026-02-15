@@ -3,6 +3,7 @@ import './App.css'
 import Layout from './components/Layout.jsx'
 import ScrollToTop from './components/ScrollToTop.jsx'
 import About from './pages/About.jsx'
+import Admin from './pages/Admin.jsx'
 import Contact from './pages/Contact.jsx'
 import Home from './pages/Home.jsx'
 import NotFound from './pages/NotFound.jsx'
@@ -18,6 +19,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="projects" element={<Projects />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

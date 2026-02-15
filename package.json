@@ -5,11 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node server.js",
     "build": "vite build",
+    "vercel-build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^7.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0"
