@@ -229,20 +229,17 @@ app.get('*', (req, res) => {
   }
 })
 
-// Export for Vercel serverless, start server for local development
-if (process.env.VERCEL) {
-  // Vercel serverless environment - export the app
-  export default app
-} else {
-  // Local development - start the server
-  const server = app.listen(port, () => {
-    console.log(`✓ Server running on port ${port}`)
-  })
+// Start server for local development (when run directly with node)
+const server = app.listen(port, () => {
+  console.log(`✓ Server running on port ${port}`)
+})
 
-  // Graceful shutdown
-  process.on('SIGINT', async () => {
-    console.log('\n⚠ Shutting down gracefully...')
-    server.close()
-    process.exit(0)
-  })
-}
+// Graceful shutdown
+process.on('SIGINT', async () => {
+  console.log('\n⚠ Shutting down gracefully...')
+  server.close()
+  process.exit(0)
+})
+
+// Export for Vercel serverless
+export default app
