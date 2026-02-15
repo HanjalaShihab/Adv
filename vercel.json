@@ -4,13 +4,6 @@
     {
       "src": "server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
     }
   ],
   "routes": [
@@ -20,21 +13,21 @@
     },
     {
       "src": "/assets/(.*)",
-      "dest": "/dist/assets/$1",
-      "headers": {
-        "cache-control": "max-age=31536000, immutable"
-      }
+      "dest": "/dist/assets/$1"
     },
     {
-      "src": "/[^.]+$",
-      "dest": "/index.html"
+      "src": "^/.*\\.(js|css|svg|png|jpg|jpeg|gif|ico|woff|woff2|eot|ttf)$",
+      "dest": "/dist$0"
     },
     {
       "src": "/(.*)",
-      "dest": "/dist/$1"
+      "dest": "/dist/index.html"
     }
   ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/dist/index.html"
+    }
+  ]
 }
