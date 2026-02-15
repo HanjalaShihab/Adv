@@ -210,14 +210,24 @@ app.delete('/api/cases/:id', authenticate, async (req, res) => {
   }
 })
 
-if (process.env.NODE_ENV === 'production') {
-  const distPath = path.join(__dirname, 'dist')
-  app.use(express.static(distPath))
+// Serve static files from dist folder
+const distPath = path.join(__dirname, 'dist')
+app.use(express.static(distPath, {
+  maxAge: '1d',
+  etag: false
+}))
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(distPath, 'index.html'))
-  })
-}
+// SPA fallback - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  // Don't serve index.html for API routes (they would have been handled above)
+  if (!req.path.startsWith('/api/')) {
+    res.sendFile(path.join(distPath, 'index.html'), (err) => {
+      if (err) {
+        res.status(404).json({ message: 'Not found' })
+      }
+    })
+  }
+})
 
 const server = app.listen(port, () => {
   console.log(`✓ Server running on port ${port}`)
@@ -227,8 +237,5 @@ const server = app.listen(port, () => {
 process.on('SIGINT', async () => {
   console.log('\n⚠ Shutting down gracefully...')
   server.close()
-  if (mongoServer) {
-    await mongoServer.stop()
-  }
   process.exit(0)
 })
