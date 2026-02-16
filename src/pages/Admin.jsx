@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { buildApiUrl } from '../api.js'
+import './Admin.css'
 
 const emptyCase = {
   title: '',

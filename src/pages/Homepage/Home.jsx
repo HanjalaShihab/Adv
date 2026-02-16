@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import profilePhoto from '../../assets/manik.jpeg'
+import './Home.css'
 import { buildApiUrl } from '../../api.js'
 import {
   caseHighlights,

@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { contactInfo, faqs } from '../../data/portfolioData.js'
+import './Contact.css'
 
 const defaultForm = {
   name: '',

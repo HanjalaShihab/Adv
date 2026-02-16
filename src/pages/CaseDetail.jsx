@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { buildApiUrl } from '../api.js'
 import { caseHighlights } from '../data/portfolioData.js'
+import './CaseDetail.css'
 
 function CaseDetail() {
   const { id } = useParams()

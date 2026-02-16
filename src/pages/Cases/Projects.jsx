@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { buildApiUrl } from '../../api.js'
 import { caseHighlights } from '../../data/portfolioData.js'
+import './Projects.css'
 
 function Projects() {
   const navigate = useNavigate()
