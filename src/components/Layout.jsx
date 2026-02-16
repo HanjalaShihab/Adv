@@ -101,7 +101,7 @@ function Layout() {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>(c) {currentYear} {profile.nickname}. All rights reserved.</span>
+          <span>{currentYear} . Made with ❤️ by Hanjala</span>
           <span>Case strategy and client-first guidance.</span>
         </div>
       </footer>
