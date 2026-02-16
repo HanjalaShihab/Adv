@@ -831,6 +831,241 @@
   border-color: rgba(255, 127, 92, 0.35);
 }
 
+.profile-page {
+  gap: 72px;
+}
+
+.profile-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 32px;
+  align-items: stretch;
+}
+
+.profile-media-card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  overflow: hidden;
+  display: grid;
+  gap: 16px;
+  padding: 0;
+}
+
+.profile-photo-frame {
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(255, 212, 164, 0.35), rgba(217, 239, 242, 0.65));
+  padding: 4px;
+}
+
+.profile-hero-content {
+  display: grid;
+  gap: 18px;
+}
+
+.profile-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 3.4vw, 3.4rem);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.profile-lead {
+  margin: 0;
+  color: rgba(15, 47, 54, 0.7);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.profile-identity {
+  display: grid;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(15, 47, 54, 0.12);
+}
+
+.profile-identity-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.profile-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.profile-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+}
+
+.profile-metric {
+  display: grid;
+  gap: 6px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(15, 47, 54, 0.12);
+}
+
+.profile-metric-label {
+  font-size: 0.85rem;
+  letter-spacing: 0.4px;
+  color: rgba(15, 47, 54, 0.6);
+}
+
+.profile-metric-value {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.profile-photo {
+  width: 100%;
+  height: 360px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(15, 47, 54, 0.08);
+  background: rgba(247, 244, 239, 0.8);
+  box-shadow: 0 18px 36px rgba(9, 35, 42, 0.16);
+}
+
+.profile-badge {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--sun), var(--accent));
+  color: #3a1f18;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.profile-name {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.profile-role {
+  margin: 4px 0 0;
+  color: rgba(247, 244, 239, 0.7);
+  font-size: 0.95rem;
+}
+
+.profile-pill {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(15, 47, 54, 0.1);
+  color: var(--ink);
+  font-size: 0.75rem;
+  letter-spacing: 0.4px;
+}
+
+.profile-story {
+  display: grid;
+  gap: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(15, 47, 54, 0.12);
+}
+
+.profile-story h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.profile-story p {
+  margin: 0;
+  color: rgba(15, 47, 54, 0.7);
+  line-height: 1.8;
+}
+
+.profile-value-strip {
+  display: grid;
+  gap: 10px;
+}
+
+.profile-value-strip h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.profile-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  color: rgba(15, 47, 54, 0.75);
+  font-size: 0.95rem;
+}
+
+.profile-section {
+  display: grid;
+  gap: 24px;
+}
+
+.profile-section-header {
+  display: grid;
+  gap: 10px;
+  max-width: 720px;
+}
+
+.profile-credentials-list {
+  display: grid;
+  gap: 12px;
+}
+
+.profile-credential-row {
+  display: grid;
+  gap: 6px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(15, 47, 54, 0.12);
+}
+
+.profile-credential-label {
+  font-size: 0.85rem;
+  color: rgba(15, 47, 54, 0.6);
+  letter-spacing: 0.4px;
+}
+
+.profile-credential-value {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.profile-timeline .timeline-item {
+  background: var(--surface);
+  border: 1px solid rgba(15, 47, 54, 0.08);
+  box-shadow: 0 16px 36px rgba(9, 35, 42, 0.12);
+  position: relative;
+}
+
+.profile-timeline .timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20px;
+  bottom: 20px;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--ocean));
+}
+
+.profile-timeline .timeline-year {
+  color: var(--ocean);
+}
+
 .card,
 .practice-card,
 .testimonial-card,
@@ -1462,6 +1697,10 @@
     gap: 20px;
   }
 
+  .profile-hero {
+    grid-template-columns: 1fr;
+  }
+
   .admin-grid {
     grid-template-columns: 1fr;
   }
@@ -1568,6 +1807,11 @@
   .case-title-modern {
     font-size: 1.3rem;
   }
+
+  .profile-photo {
+    height: 240px;
+  }
+
 }
 
 @media (max-width: 520px) {
@@ -1665,6 +1909,18 @@
 
   .case-details-btn {
     align-self: flex-end;
+  }
+
+  .profile-title {
+    font-size: clamp(1.9rem, 7vw, 2.6rem);
+  }
+
+  .profile-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-credentials-list {
+    padding-top: 4px;
   }
 }
 
