@@ -67,8 +67,7 @@ function About() {
           <div className="about-timeline-header">
             <span className="about-section-tag">● পেশাগত যাত্রা</span>
             <h2 className="about-section-title">
-              অভিজ্ঞতা ও<br />
-              <span className="about-gradient">উন্নয়ন</span>
+              অভিজ্ঞতা<br />
             </h2>
           </div>
 
