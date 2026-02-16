@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import profilePhoto from '../../assets/manik.jpeg'
 import './Home.css'
@@ -15,168 +15,211 @@ import {
 
 function Home() {
   const [cases, setCases] = useState(caseHighlights)
+  const [activeSection, setActiveSection] = useState('hero')
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const sectionRefs = useRef({})
+  const parallaxRef = useRef(null)
 
+  // Track mouse for parallax effects
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 20,
+        y: (e.clientY / window.innerHeight - 0.5) * 20
+      })
+    }
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => window.removeEventListener('mousemove', handleMouseMove)
+  }, [])
+
+  // Intersection Observer for section activation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id)
+          }
+        })
+      },
+      { threshold: 0.5 }
+    )
+
+    Object.values(sectionRefs.current).forEach((ref) => {
+      if (ref) observer.observe(ref)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Load cases from API
   useEffect(() => {
     let isMounted = true
+    let abortController = new AbortController()
 
     const loadCases = async () => {
+      setIsLoading(true)
+      setError(null)
+      
       try {
-        const response = await fetch(buildApiUrl('/api/cases'))
-        if (!response.ok) {
-          return
-        }
+        const response = await fetch(buildApiUrl('/api/cases'), {
+          signal: abortController.signal,
+          headers: { 'Content-Type': 'application/json' },
+        })
+        
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+        
         const data = await response.json()
+        
         if (isMounted && Array.isArray(data) && data.length > 0) {
           setCases(data)
         }
       } catch (error) {
-        // Keep fallback data when API is unavailable.
+        if (error.name === 'AbortError') return
+        console.error('Error loading cases:', error)
+        setError('Failed to load cases')
+        setCases(caseHighlights)
+      } finally {
+        if (isMounted) setIsLoading(false)
       }
     }
 
     loadCases()
     return () => {
       isMounted = false
+      abortController.abort()
     }
   }, [])
 
   return (
-    <div className="page">
-      <section className="hero">
-        <div className="hero-shell">
-          <p className="eyebrow">Advocate Profile</p>
-          <h1 className="hero-title">{profile.name}</h1>
-          <p className="hero-subtitle">
-            {profile.nickname} একজন অভিজ্ঞ আইনজীবী। তিনি প্রতিটি ধাপে কৌশলগত মামলা
-            পরিচালনা, নির্ভুল ডকুমেন্টেশন ও স্পষ্ট পরামর্শ প্রদান করেন।
-          </p>
-          <div className="hero-actions">
-            <Link className="button" to="/contact">
-              পরামর্শের জন্য অনুরোধ করুন
-            </Link>
-            <Link className="button ghost" to="/projects">
-              মামলা দেখুন
-            </Link>
-          </div>
-          <div className="stat-strip">
-            {heroStats.map((stat) => (
-              <div key={stat.label} className="stat-card">
-                <p className="stat-value">{stat.value}</p>
-                <p className="stat-label">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+    <div className="home" ref={parallaxRef}>
+      {/* Navigation Dots */}
+      <div className="nav-dots">
+        {['hero', 'profile', 'practice', 'cases', 'contact'].map((section) => (
+          <button
+            key={section}
+            className={`nav-dot ${activeSection === section ? 'active' : ''}`}
+            onClick={() => {
+              sectionRefs.current[section]?.scrollIntoView({ behavior: 'smooth' })
+            }}
+            aria-label={`Scroll to ${section}`}
+          />
+        ))}
+      </div>
+
+      {/* Hero Section - Minimal & Bold */}
+      <section 
+        id="hero" 
+        className="hero-section"
+        ref={(el) => (sectionRefs.current.hero = el)}
+      >
+        <div className="hero-backdrop">
+          <div className="gradient-sphere" 
+            style={{ transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)` }}
+          />
+          <div className="gradient-sphere secondary" 
+            style={{ transform: `translate(${-mousePosition.x}px, ${-mousePosition.y}px)` }}
+          />
         </div>
-        <div className="hero-card">
-          <div className="hero-crest">
-            <div className="crest-ring"></div>
-            <div className="crest-core">MN</div>
-            <div className="crest-ray"></div>
-          </div>
-          <div className="hero-detail">
-            <p className="detail-label">প্রধান ক্ষেত্র</p>
-            <p className="detail-value">মামলা, পরামর্শ, কমপ্লায়েন্স</p>
-            <div className="trust-row">
-              <span className="trust-pill">আদালত প্রতিনিধিত্ব</span>
-              <span className="trust-pill">গোপনীয় পরামর্শ</span>
-              <span className="trust-pill">ক্লায়েন্ট অগ্রাধিকার</span>
+
+        <div className="hero-content">
+          <div className="hero-text">
+            <span className="hero-tag">⚖️ ADVOCATE</span>
+            <h1 className="hero-title">
+              <span className="title-line">{profile.name}</span>
+              <span className="title-line gradient">{profile.nickname}</span>
+            </h1>
+            <p className="hero-description">
+              কৌশলগত মামলা পরিচালনা, নির্ভুল ডকুমেন্টেশন ও স্পষ্ট পরামর্শ। 
+              প্রতিটি ধাপে পেশাদার নির্দেশনা।
+            </p>
+            <div className="hero-actions">
+              <Link to="/contact" className="primary-btn">
+                <span>পরামর্শ নিন</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M4.16666 10H15.8333M15.8333 10L11.6667 5.83333M15.8333 10L11.6667 14.1667" 
+                    stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+              <Link to="/projects" className="secondary-btn">
+                মামলা দেখুন
+              </Link>
             </div>
           </div>
-        </div>
-      </section>
 
-      <section className="section home-profile" id="profile">
-        <div className="section-header">
-          <h2 className="section-title">প্রোফাইল সারসংক্ষেপ</h2>
-          <p className="section-subtitle">
-            কৌশল, সহমর্মিতা ও নিয়মিত আপডেটের মাধ্যমে প্রতিটি মামলায় নির্ভরযোগ্য
-            নেতৃত্ব নিশ্চিত করা হয়।
-          </p>
-        </div>
-        <div className="home-profile-grid">
-          <div className="home-profile-media">
-            <div className="profile-photo-frame">
-              <img
-                className="profile-photo"
-                src={profilePhoto}
-                alt={`${profile.name} profile`}
+          <div className="hero-visual">
+            <div className="profile-ring">
+              <div className="ring"></div>
+              <div className="ring delayed"></div>
+              <img 
+                src={profilePhoto} 
+                alt={profile.name}
+                className="profile-image"
               />
             </div>
-            <div className="profile-metrics">
-              {credentials.slice(0, 3).map((item) => (
-                <div key={item.label} className="profile-metric">
-                  <span className="profile-metric-label">{item.label}</span>
-                  <span className="profile-metric-value">{item.value}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="home-profile-content">
-            <div className="profile-identity">
-              <div className="profile-identity-top">
-                <div className="profile-badge">MN</div>
-                <div>
-                  <p className="profile-name">{profile.name}</p>
-                  <p className="profile-role">{profile.title}</p>
-                </div>
-              </div>
-            </div>
-            <h3 className="home-profile-title">বিশ্বাসযোগ্য আইনি পরামর্শ</h3>
-            <p className="profile-lead">
-              {profile.name} ({profile.nickname}) প্রতিটি কেসে কৌশলগত চিন্তা,
-              নির্ভুল নথিপত্র ও স্পষ্ট যোগাযোগের মাধ্যমে দৃঢ় প্রতিনিধিত্ব
-              নিশ্চিত করেন।
-            </p>
-            <div className="profile-story">
-              <h3>প্রোফাইল সারাংশ</h3>
-              <p>
-                শান্ত আদালত উপস্থিতি ও নিখুঁত ফাইলিংয়ের জন্য পরিচিত মানিক কৌশল ও
-                সহমর্মিতার মাধ্যমে ক্লায়েন্টকে সহায়তা করেন। প্রতিটি বিষয়ে স্পষ্ট
-                পরিকল্পনা, বাস্তব প্রত্যাশা এবং নিয়মিত আপডেট প্রদান করা হয়।
-              </p>
-            </div>
-            <div className="profile-value-strip">
-              <h3>মূল নীতিমালা</h3>
-              <ul className="profile-info-list">
-                {values.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
-        <div className="home-profile-panels">
-          <div className="home-profile-panel">
-            <div className="home-panel-header">
-              <h3 className="home-panel-title">যোগ্যতা ও অভিজ্ঞতা</h3>
-              <p className="home-panel-subtitle">
-                অফিসিয়াল তথ্য দিয়ে আপডেট করুন।
-              </p>
-            </div>
-            <div className="profile-credentials-list">
-              {credentials.map((item) => (
-                <div key={item.label} className="profile-credential-row">
-                  <span className="profile-credential-label">{item.label}</span>
-                  <span className="profile-credential-value">{item.value}</span>
+
+        <div className="scroll-indicator">
+          <span>Scroll</span>
+          <div className="scroll-line"></div>
+        </div>
+      </section>
+
+      {/* Stats Strip - Minimal */}
+      <div className="stats-strip">
+        {heroStats.map((stat, index) => (
+          <div key={stat.label} className="stat-item">
+            <span className="stat-number">{stat.value}</span>
+            <span className="stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Profile Section - Editorial Style */}
+      <section 
+        id="profile" 
+        className="profile-section"
+        ref={(el) => (sectionRefs.current.profile = el)}
+      >
+        <div className="profile-grid">
+          <div className="profile-info">
+            <span className="home-section-tag">● ABOUT</span>
+            <h2 className="home-section-title">
+              বিশ্বাসযোগ্য<br />
+              <span className="gradient">আইনি পরামর্শ</span>
+            </h2>
+            
+            <blockquote className="profile-quote">
+              “প্রতিটি কেসে কৌশলগত চিন্তা, নির্ভুল নথিপত্র 
+              ও স্পষ্ট যোগাযোগের মাধ্যমে দৃঢ় প্রতিনিধিত্ব নিশ্চিত করি।”
+            </blockquote>
+
+            <div className="profile-milestones">
+              {timeline.slice(0, 3).map((item) => (
+                <div key={item.year} className="milestone">
+                  <span className="milestone-year">{item.year}</span>
+                  <span className="milestone-title">{item.title}</span>
                 </div>
               ))}
             </div>
           </div>
-          <div className="home-profile-panel">
-            <div className="home-panel-header">
-              <h3 className="home-panel-title">অভিজ্ঞতার টাইমলাইন</h3>
-              <p className="home-panel-subtitle">
-                পেশাগত জীবনের গুরুত্বপূর্ণ ধাপসমূহ।
-              </p>
+
+          <div className="profile-values">
+            <h3>মূল নীতিমালা</h3>
+            <div className="values-cloud">
+              {values.map((value) => (
+                <span key={value} className="value-tag">{value}</span>
+              ))}
             </div>
-            <div className="timeline profile-timeline">
-              {timeline.map((item) => (
-                <div key={item.year} className="timeline-item">
-                  <div className="timeline-year">{item.year}</div>
-                  <div className="timeline-body">
-                    <h3>{item.title}</h3>
-                    <p>{item.summary}</p>
-                  </div>
+
+            <div className="credentials-minimal">
+              {credentials.slice(0, 3).map((cred) => (
+                <div key={cred.label} className="cred-item">
+                  <span className="cred-label">{cred.label}</span>
+                  <span className="cred-value">{cred.value}</span>
                 </div>
               ))}
             </div>
@@ -184,16 +227,35 @@ function Home() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-header">
-          <h2 className="section-title">প্র্যাকটিস এরিয়া</h2>
-          <p className="section-subtitle">
-            সিভিল, ফৌজদারি ও করপোরেট বিষয়ে বিশেষায়িত সহায়তা।
-          </p>
+      {/* Practice Areas - Floating Elements */}
+      <section 
+        id="practice" 
+        className="practice-section"
+        ref={(el) => (sectionRefs.current.practice = el)}
+      >
+        <div className="practice-header">
+          <span className="home-section-tag">● PRACTICE AREAS</span>
+          <h2 className="home-section-title">
+            প্র্যাকটিস<br />
+            <span className="gradient">এরিয়া</span>
+          </h2>
         </div>
-        <div className="practice-grid">
-          {practiceAreas.map((area) => (
-            <div key={area.title} className="practice-card">
+
+        <div className="practice-showcase">
+          {practiceAreas.map((area, index) => (
+            <div 
+              key={area.title} 
+              className="showcase-item"
+              style={{ 
+                transform: `translate(${mousePosition.x * (index + 1) * 0.5}px, ${mousePosition.y * (index + 1) * 0.5}px)`
+              }}
+            >
+              <div className="item-icon">
+                {index === 0 && '⚖️'}
+                {index === 1 && '🔒'}
+                {index === 2 && '🏢'}
+                {index === 3 && '📄'}
+              </div>
               <h3>{area.title}</h3>
               <p>{area.description}</p>
             </div>
@@ -201,26 +263,66 @@ function Home() {
         </div>
       </section>
 
-      <section className="section">
-        <div className="section-header">
-          <h2 className="section-title">কেস হাইলাইটস</h2>
-          <p className="section-subtitle">
-            সাম্প্রতিক মামলার কৌশল ও ফলাফলের সংক্ষিপ্ত নমুনা।
-          </p>
+      {/* Cases Section - Minimal Grid */}
+      <section 
+        id="cases" 
+        className="cases-section"
+        ref={(el) => (sectionRefs.current.cases = el)}
+      >
+        <div className="cases-header">
+          <div>
+            <span className="home-section-tag">● FEATURED CASES</span>
+            <h2 className="home-section-title">
+              সাম্প্রতিক<br />
+              <span className="gradient">মামলার ফলাফল</span>
+            </h2>
+          </div>
+          <Link to="/projects" className="view-all">
+            সবগুলি দেখুন
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4.16666 10H15.8333M15.8333 10L11.6667 5.83333M15.8333 10L11.6667 14.1667" 
+                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>
         </div>
-        <div className="case-grid">
-          {cases.slice(0, 4).map((item) => (
-            <div key={item.id || item.title} className="case-card">
-              <div className="case-tag">{item.category}</div>
-              <h3>{item.title}</h3>
-              <p>{item.summary}</p>
-              <span className="case-outcome">{item.outcome}</span>
+
+        <div className="cases-masonry">
+          {cases.slice(0, 3).map((item, index) => (
+            <div 
+              key={item.id || item.title} 
+              className={`case-block block-${index + 1}`}
+            >
+              <div className="case-content">
+                <span className="case-category">{item.category}</span>
+                <h3>{item.title}</h3>
+                <p>{item.summary}</p>
+                <span className="case-result">{item.outcome}</span>
+              </div>
             </div>
           ))}
         </div>
-        <div className="section-actions">
-          <Link className="button" to="/projects">
-            সব মামলা দেখুন
+      </section>
+
+      {/* Contact Banner - Full Width */}
+      <section 
+        id="contact" 
+        className="contact-banner"
+        ref={(el) => (sectionRefs.current.contact = el)}
+      >
+        <div className="banner-content">
+          <h2 className="banner-title">
+            আইনি পরামর্শ<br />
+            <span className="gradient">প্রয়োজন?</span>
+          </h2>
+          <p className="banner-text">
+            আজই যোগাযোগ করুন এবং আপনার মামলা নিয়ে বিস্তারিত আলোচনা করুন।
+          </p>
+          <Link to="/contact" className="primary-btn large">
+            ফ্রি পরামর্শ নিন
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M4.16666 10H15.8333M15.8333 10L11.6667 5.83333M15.8333 10L11.6667 14.1667" 
+                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </Link>
         </div>
       </section>

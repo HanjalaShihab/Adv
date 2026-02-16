@@ -10,14 +10,18 @@ dotenv.config()
 
 const app = express()
 const port = process.env.PORT || 3001
-const corsOrigin = process.env.CORS_ORIGIN || 'http://localhost:5173'
+
+// CORS configuration - allow any localhost origin in development
+const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1'
+const corsOrigin = process.env.CORS_ORIGIN || (isProduction ? 'https://advmanik.vercel.app' : /^http:\/\/localhost/)
+
 const jwtSecret = process.env.JWT_SECRET || 'change-this-secret'
 const adminUsername = process.env.ADMIN_USERNAME || 'manik12345'
 const adminPassword = process.env.ADMIN_PASSWORD || 'admin12345'
 const mongoUri = process.env.MONGO_URI || 'mongodb+srv://advmanik:advmanik@cluster0.f5iygty.mongodb.net/?retryWrites=true&w=majority'
 const dbName = process.env.MONGO_DB_NAME || 'advPortfolio'
 
-app.use(cors({ origin: corsOrigin }))
+app.use(cors({ origin: corsOrigin, credentials: true }))
 app.use(express.json())
 
 const __filename = fileURLToPath(import.meta.url)
