@@ -282,9 +282,9 @@ function Contact() {
         <div className="contact-map-container">
           <div className="contact-map-overlay">
             <h3 className="contact-map-title">অফিস লোকেশন</h3>
-            <p className="contact-map-address">{contactInfo.office}</p>
+            <p className="contact-map-address">কুমিল্লা জেলা বার অ্যাসোসিয়েশন, কুমিল্লা, বাংলাদেশ</p>
             <a 
-              href={`https://maps.google.com/?q=${encodeURIComponent(contactInfo.office)}`} 
+              href="https://www.google.com/maps/place/Cumilla+District+Bar+Association/@23.4660769,91.1740857,16z/data=!4m10!1m2!2m1!1sComilla+Lawyer+Organization+building,+judge+court,+comilla!3m6!1s0x37547fa76a19c7f9:0x5f616ebc83d2611b!8m2!3d23.4722017!4d91.1803698" 
               target="_blank" 
               rel="noopener noreferrer"
               className="contact-map-link"
@@ -295,15 +295,15 @@ function Contact() {
               </svg>
             </a>
           </div>
-          <div className="contact-map-placeholder">
-            <svg width="100%" height="100%" viewBox="0 0 800 400" preserveAspectRatio="none">
-              <rect width="800" height="400" fill="var(--secondary)"/>
-              <circle cx="400" cy="200" r="50" fill="var(--primary)" opacity="0.5"/>
-              <circle cx="400" cy="200" r="20" fill="white"/>
-              <path d="M400 100 L400 300 M300 200 L500 200" stroke="white" strokeWidth="2" strokeDasharray="5 5"/>
-              <text x="400" y="380" textAnchor="middle" fill="white" fontSize="14">ঢাকা, বাংলাদেশ</text>
-            </svg>
-          </div>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3630.5237836477826!2d91.1740857!3d23.4660769!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x37547fa76a19c7f9%3A0x5f616ebc83d2611b!2sCumilla%20District%20Bar%20Association!5e0!3m2!1sen!2sbd!4v1234567890" 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0, borderRadius: '40px 0 0 40px' }}
+            allowFullScreen="" 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </section>
     </div>
