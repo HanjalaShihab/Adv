@@ -89,11 +89,11 @@
 .site-footer {
   display: grid;
   gap: 24px;
-  padding: 28px;
-  border-radius: var(--radius-xl);
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(217, 239, 242, 0.7));
-  border: 1px solid rgba(15, 47, 54, 0.08);
-  box-shadow: 0 22px 52px var(--shadow);
+  padding: 28px 0 0;
+  border-radius: 0;
+  background: transparent;
+  border-top: 1px solid rgba(15, 47, 54, 0.12);
+  box-shadow: none;
 }
 
 .footer-grid {
