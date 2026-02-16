@@ -9,6 +9,13 @@ function Projects() {
   const [activeCategory, setActiveCategory] = useState('সব')
   const [searchTerm, setSearchTerm] = useState('')
 
+  const normalizeText = (value) =>
+    (value || '')
+      .toString()
+      .toLowerCase()
+      .replace(/\s+/g, '')
+      .replace(/[^\u0980-\u09FFa-z0-9]/g, '')
+
   useEffect(() => {
     let isMounted = true
 
@@ -49,17 +56,30 @@ function Projects() {
     
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase().trim()
+      const normalizedTerm = normalizeText(term)
       filtered = filtered.filter((project) => {
         const title = (project.title || '').toLowerCase()
         const summary = (project.summary || '').toLowerCase()
         const outcome = (project.outcome || '').toLowerCase()
         const category = (project.category || '').toLowerCase()
+
+        const normalizedTitle = normalizeText(title)
+        const normalizedSummary = normalizeText(summary)
+        const normalizedOutcome = normalizeText(outcome)
+        const normalizedCategory = normalizeText(category)
+
+        const matchesNormalized =
+          normalizedTitle.includes(normalizedTerm) ||
+          normalizedSummary.includes(normalizedTerm) ||
+          normalizedOutcome.includes(normalizedTerm) ||
+          normalizedCategory.includes(normalizedTerm)
         
         return (
           title.includes(term) ||
           summary.includes(term) ||
           outcome.includes(term) ||
-          category.includes(term)
+          category.includes(term) ||
+          (normalizedTerm && matchesNormalized)
         )
       })
     }
