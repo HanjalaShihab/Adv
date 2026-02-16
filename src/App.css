@@ -1192,40 +1192,60 @@
   gap: 20px;
 }
 
-.office-panel {
+.office-sheet {
+  position: relative;
+  overflow: hidden;
+}
+
+.office-sheet::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  bottom: 18px;
+  width: 4px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--ocean));
+}
+
+.office-head {
   display: grid;
-  gap: 20px;
+  gap: 8px;
+  padding-left: 12px;
 }
 
-.office-panel-header h3 {
-  margin: 0 0 8px;
+.office-kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: rgba(15, 47, 54, 0.55);
 }
 
-.office-panel-header p {
+.office-head h3 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.office-note {
   margin: 0;
   color: rgba(15, 47, 54, 0.7);
   line-height: 1.7;
 }
 
-.office-panel-list {
+.office-list {
   display: grid;
   gap: 14px;
-  padding-top: 8px;
+  padding: 12px 0 0 12px;
   border-top: 1px solid rgba(15, 47, 54, 0.12);
 }
 
 .office-row {
   display: grid;
-  gap: 6px;
+  grid-template-columns: 120px 1fr;
+  gap: 10px;
   padding-bottom: 12px;
   border-bottom: 1px dashed rgba(15, 47, 54, 0.12);
-}
-
-.office-email {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
 }
 
 .office-row:last-child {
@@ -1242,6 +1262,13 @@
 .office-value {
   font-weight: 600;
   color: var(--ink);
+}
+
+.office-value-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .office-link {
@@ -1882,6 +1909,10 @@
 
   .case-title-modern {
     font-size: 1.3rem;
+  }
+
+  .office-row {
+    grid-template-columns: 1fr;
   }
 
   .profile-photo {
