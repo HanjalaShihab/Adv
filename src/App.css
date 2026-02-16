@@ -2031,6 +2031,7 @@
   /* Cases page responsive */
   .cases-header {
     padding: 24px 16px;
+    width: 370px;
   }
 
   .cases-title {
@@ -2063,7 +2064,7 @@
   }
 
   .search-box {
-    max-width: 100%;
+    width: 370px;
   }
 
   .search-input {
@@ -2073,7 +2074,7 @@
 
   .filter-chips {
     overflow-x: auto;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     padding-bottom: 8px;
     -webkit-overflow-scrolling: touch;
   }
