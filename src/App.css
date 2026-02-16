@@ -1973,11 +1973,18 @@
   }
 
   .cases-grid {
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
   .case-card-modern {
     padding: 22px;
+    width: 100%;
+  }
+
+  .case-card-header {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .case-title-modern {
