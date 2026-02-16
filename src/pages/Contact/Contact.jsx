@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { contactInfo, faqs, profile } from '../data/portfolioData.js'
+import { contactInfo, faqs } from '../../data/portfolioData.js'
 
 const defaultForm = {
   name: '',
@@ -36,15 +36,11 @@ function Contact() {
     <div className="page">
       <section className="section">
         <div className="section-header">
-          <h1 className="section-title">{profile.nickname} এর সাথে পরামর্শ করুন</h1>
-          <p className="section-subtitle">
-            প্রয়োজনীয় তথ্য দিন, আমরা পরবর্তী ধাপ সম্পর্কে জানাব।
-          </p>
+          <h1 className="section-title">আমার সাথে পরামর্শ করুন</h1>
         </div>
         <div className="contact-grid">
           <div className="contact-card office-sheet">
             <div className="office-head">
-              <p className="office-kicker">অফিস তথ্য</p>
               <h3>যোগাযোগের ঠিকানা</h3>
               <p className="office-note">
                 দ্রুত পর্যালোচনার জন্য সংশ্লিষ্ট ডকুমেন্ট, মামলা নম্বর ও গুরুত্বপূর্ণ

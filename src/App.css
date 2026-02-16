@@ -1292,6 +1292,94 @@
   color: var(--ocean);
 }
 
+.home-profile {
+  gap: 28px;
+}
+
+.home-profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: 32px;
+  align-items: center;
+  padding: 32px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(217, 239, 242, 0.72)
+  );
+  border: 1px solid rgba(15, 47, 54, 0.12);
+  box-shadow: 0 24px 60px rgba(9, 35, 42, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-profile-grid::after {
+  content: "";
+  position: absolute;
+  top: -30%;
+  right: -10%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 127, 92, 0.25),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.home-profile-media {
+  display: grid;
+  gap: 18px;
+}
+
+.home-profile-content {
+  display: grid;
+  gap: 16px;
+}
+
+.home-profile-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.6vw, 2.6rem);
+  line-height: 1.2;
+}
+
+.home-profile-panels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.home-profile-panel {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  border: 1px solid rgba(15, 47, 54, 0.08);
+  box-shadow: 0 16px 36px rgba(9, 35, 42, 0.1);
+}
+
+.home-panel-header {
+  display: grid;
+  gap: 6px;
+}
+
+.home-panel-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.home-panel-subtitle {
+  margin: 0;
+  color: rgba(15, 47, 54, 0.6);
+  font-size: 0.95rem;
+}
+
 .card,
 .practice-card,
 .testimonial-card,
@@ -2196,6 +2284,15 @@
     grid-template-columns: 1fr;
   }
 
+  .home-profile-grid {
+    grid-template-columns: 1fr;
+    padding: 24px;
+  }
+
+  .home-profile-panels {
+    grid-template-columns: 1fr;
+  }
+
   .admin-grid {
     grid-template-columns: 1fr;
   }
@@ -2267,6 +2364,14 @@
 
   .timeline-item {
     grid-template-columns: 1fr;
+  }
+
+  .home-profile-grid {
+    padding: 20px;
+  }
+
+  .home-profile-panel {
+    padding: 20px;
   }
 
   /* Cases page responsive */

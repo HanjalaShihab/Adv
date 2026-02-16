@@ -4,7 +4,6 @@ import { profile } from '../data/portfolioData.js'
 
 const navItems = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'Profile' },
   { to: '/projects', label: 'Cases' },
   { to: '/contact', label: 'Consultation' },
 ]

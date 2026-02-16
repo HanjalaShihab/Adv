@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { buildApiUrl } from '../api.js'
-import { caseHighlights } from '../data/portfolioData.js'
+import { buildApiUrl } from '../../api.js'
+import { caseHighlights } from '../../data/portfolioData.js'
 
 function Projects() {
   const navigate = useNavigate()
@@ -47,13 +47,13 @@ function Projects() {
 
   const visibleProjects = useMemo(() => {
     let filtered = cases
-    
+
     if (activeCategory !== 'সব') {
       filtered = filtered.filter(
         (project) => project.category === activeCategory,
       )
     }
-    
+
     if (searchTerm.trim()) {
       const term = searchTerm.toLowerCase().trim()
       const normalizedTerm = normalizeText(term)
@@ -73,7 +73,7 @@ function Projects() {
           normalizedSummary.includes(normalizedTerm) ||
           normalizedOutcome.includes(normalizedTerm) ||
           normalizedCategory.includes(normalizedTerm)
-        
+
         return (
           title.includes(term) ||
           summary.includes(term) ||
@@ -83,7 +83,7 @@ function Projects() {
         )
       })
     }
-    
+
     return filtered
   }, [activeCategory, cases, searchTerm])
 
@@ -169,14 +169,16 @@ function Projects() {
         ) : (
           <div className="cases-grid">
             {visibleProjects.map((project, index) => (
-              <article 
-                key={project.id || project.title} 
+              <article
+                key={project.id || project.title}
                 className="case-card-modern"
                 style={{ animationDelay: `${index * 0.05}s` }}
               >
                 <div className="case-card-header">
                   <span className="case-category-badge">{project.category}</span>
-                  <span className="case-number">#{(index + 1).toString().padStart(2, '0')}</span>
+                  <span className="case-number">
+                    #{(index + 1).toString().padStart(2, '0')}
+                  </span>
                 </div>
                 <h3 className="case-title-modern">{project.title}</h3>
                 <p className="case-summary">{project.summary}</p>
@@ -187,10 +189,12 @@ function Projects() {
                     </svg>
                     <span>{project.outcome}</span>
                   </div>
-                  <button 
-                    className="case-details-btn" 
+                  <button
+                    className="case-details-btn"
                     type="button"
-                    onClick={() => navigate(`/case/${project.id || encodeURIComponent(project.title)}`)}
+                    onClick={() =>
+                      navigate(`/case/${project.id || encodeURIComponent(project.title)}`)
+                    }
                   >
                     বিস্তারিত
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
