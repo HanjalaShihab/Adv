@@ -10,7 +10,7 @@ const defaultForm = {
 
 function Contact() {
   const [formValues, setFormValues] = useState(defaultForm)
-  const [status, setStatus] = useState('পরামর্শের সময় অ্যাপয়েন্টমেন্ট নির্ধারণ হয়।')
+  const [status, setStatus] = useState('অ্যাপয়েন্টমেন্ট নির্ধারণ হয়')
 
   const handleChange = (event) => {
     const { name, value } = event.target

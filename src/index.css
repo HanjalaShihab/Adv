@@ -2,20 +2,30 @@
   font-family: var(--font-body);
   line-height: 1.6;
   font-weight: 400;
-  color: #111827;
-  background-color: #f4efe7;
+  color: var(--ink);
+  background-color: var(--paper);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  --font-display: 'Noto Serif Bengali', 'Georgia', 'Times New Roman', serif;
-  --font-body: 'Hind Siliguri', 'Noto Sans Bengali', 'SolaimanLipi',
-    'Trebuchet MS', 'Segoe UI', 'Arial', sans-serif;
-  --paper: #f4efe7;
-  --ink: #111827;
-  --accent: #c8a15a;
-  --accent-strong: #b1812f;
-  --mist: #e7decf;
-  --shadow: rgba(9, 11, 16, 0.16);
+  --font-display: 'Noto Serif Bengali', 'Palatino Linotype', 'Book Antiqua',
+    'Georgia', 'Times New Roman', serif;
+  --font-body: 'Hind Siliguri', 'Noto Sans Bengali', 'SolaimanLipi', 'Candara',
+    'Trebuchet MS', 'Segoe UI', sans-serif;
+  --paper: #f6f1ea;
+  --ink: #0f2f36;
+  --accent: #ff7f5c;
+  --accent-strong: #f0644b;
+  --mist: #d9eff2;
+  --shadow: rgba(9, 35, 42, 0.16);
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --ocean: #2b7c8a;
+  --ocean-dark: #1e5c67;
+  --sun: #ffd4a4;
+  --glow: rgba(255, 127, 92, 0.35);
+  --radius-full: 999px;
+  --color-accent: var(--accent);
+  --color-text: var(--ink);
   --radius-xl: 32px;
   --radius-lg: 24px;
   --radius-md: 18px;
@@ -31,7 +41,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f7f1e7 0%, #efe4d3 100%);
+  background: linear-gradient(135deg, #f7f4ef 0%, #e7f3f3 55%, #fbe9da 100%);
   color: var(--ink);
   position: relative;
 }
@@ -51,13 +61,13 @@ body::after {
 body::before {
   top: -140px;
   right: 6%;
-  background: radial-gradient(circle, rgba(200, 161, 90, 0.55), transparent 70%);
+  background: radial-gradient(circle, rgba(255, 127, 92, 0.45), transparent 70%);
 }
 
 body::after {
   bottom: -160px;
   left: 6%;
-  background: radial-gradient(circle, rgba(17, 24, 39, 0.3), transparent 70%);
+  background: radial-gradient(circle, rgba(43, 124, 138, 0.32), transparent 70%);
 }
 
 a {
