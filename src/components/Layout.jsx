@@ -13,6 +13,7 @@ function Layout() {
   const navigate = useNavigate()
   const [clickCount, setClickCount] = useState(0)
   const clickTimer = useRef(null)
+  const currentYear = new Date().getFullYear()
 
   const handleCasesClick = (e) => {
     // Secret trigger: Click "Cases" 4 times quickly to access admin
@@ -75,15 +76,33 @@ function Layout() {
         <Outlet />
       </main>
       <footer className="site-footer">
-        <div>
-          <p className="footer-title">{profile.nickname}</p>
-          <p className="footer-text">
-            স্পষ্টতা ও কৌশলভিত্তিক আইনি সহায়তা।
-          </p>
+        <div className="footer-grid">
+          <div className="footer-brand">
+            <div className="footer-mark">MN</div>
+            <div>
+              <p className="footer-title">{profile.name}</p>
+              <p className="footer-text">{profile.title}</p>
+            </div>
+          </div>
+          <div className="footer-links">
+            <p className="footer-label">Quick Links</p>
+            <div className="footer-list">
+              {navItems.map((item) => (
+                <NavLink key={item.to} to={item.to} className="footer-link">
+                  {item.label}
+                </NavLink>
+              ))}
+            </div>
+          </div>
+          <div className="footer-info">
+            <p className="footer-label">Office</p>
+            <p className="footer-meta">{profile.location}</p>
+            <p className="footer-meta">Appointment only</p>
+          </div>
         </div>
-        <div className="footer-meta">
-          <span>{profile.location}</span>
-          <span>অ্যাপয়েন্টমেন্টের মাধ্যমে পরামর্শ</span>
+        <div className="footer-bottom">
+          <span>(c) {currentYear} {profile.nickname}. All rights reserved.</span>
+          <span>Case strategy and client-first guidance.</span>
         </div>
       </footer>
     </div>

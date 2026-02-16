@@ -87,21 +87,44 @@
 }
 
 .site-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
   gap: 24px;
-  padding: 26px;
-  border-radius: var(--radius-lg);
-  background: var(--surface);
+  padding: 28px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(217, 239, 242, 0.7));
   border: 1px solid rgba(15, 47, 54, 0.08);
-  box-shadow: 0 20px 48px var(--shadow);
+  box-shadow: 0 22px 52px var(--shadow);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 1.2fr) repeat(2, minmax(180px, 1fr));
+  gap: 24px;
+}
+
+.footer-brand {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.footer-mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  letter-spacing: 2px;
+  box-shadow: 0 12px 24px rgba(9, 35, 42, 0.18);
 }
 
 .footer-title {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  margin: 0 0 8px;
+  font-size: 1.05rem;
+  margin: 0 0 6px;
 }
 
 .footer-text {
@@ -109,11 +132,49 @@
   color: rgba(15, 47, 54, 0.7);
 }
 
-.footer-meta {
+.footer-links,
+.footer-info {
   display: grid;
-  gap: 6px;
-  text-align: right;
-  font-size: 0.9rem;
+  gap: 10px;
+}
+
+.footer-label {
+  font-size: 0.8rem;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: rgba(15, 47, 54, 0.55);
+  margin: 0;
+}
+
+.footer-list {
+  display: grid;
+  gap: 8px;
+}
+
+.footer-link {
+  color: rgba(15, 47, 54, 0.75);
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: var(--ink);
+}
+
+.footer-meta {
+  margin: 0;
+  font-size: 0.92rem;
+  color: rgba(15, 47, 54, 0.7);
+}
+
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(15, 47, 54, 0.12);
+  font-size: 0.85rem;
   color: rgba(15, 47, 54, 0.6);
 }
 
@@ -1861,6 +1922,14 @@
   }
 
   .site-footer {
+    padding: 22px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-bottom {
     flex-direction: column;
     align-items: flex-start;
   }
