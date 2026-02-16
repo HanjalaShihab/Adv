@@ -1282,6 +1282,13 @@
   font-weight: 600;
 }
 
+.office-email {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
 .form {
   gap: 16px;
 }
