@@ -2006,6 +2006,10 @@
     padding: 16px;
   }
 
+  .cases-section {
+    padding: 0 4px;
+  }
+
   .hero-title,
   .section-title,
   .cta-title {
@@ -2074,6 +2078,11 @@
 
   .cases-grid {
     grid-template-columns: 1fr;
+  }
+
+  .case-card-modern {
+    width: 100%;
+    max-width: 100%;
   }
 
   .case-card-modern {
