@@ -42,31 +42,35 @@ function Contact() {
           </p>
         </div>
         <div className="contact-grid">
-          <div className="contact-card">
-            <h3>অফিস তথ্য</h3>
-            <p>
-              দ্রুত পর্যালোচনার জন্য সংশ্লিষ্ট ডকুমেন্ট, মামলা নম্বর ও গুরুত্বপূর্ণ
-              তারিখ দিন।
-            </p>
-            <div className="contact-stack">
-              <button type="button" className="button" onClick={handleCopy}>
-                ইমেইল কপি করুন
-              </button>
-              <div className="contact-info">
-                <p className="contact-label">ইমেইল</p>
-                <p className="contact-value">{contactInfo.email}</p>
+          <div className="contact-card office-panel">
+            <div className="office-panel-header">
+              <h3>অফিস তথ্য</h3>
+              <p>
+                দ্রুত পর্যালোচনার জন্য সংশ্লিষ্ট ডকুমেন্ট, মামলা নম্বর ও গুরুত্বপূর্ণ
+                তারিখ দিন।
+              </p>
+            </div>
+            <div className="office-panel-list">
+              <div className="office-row email-row">
+                <span className="office-label">ইমেইল</span>
+                <div className="office-email">
+                  <span className="office-value">{contactInfo.email}</span>
+                  <button type="button" className="office-link" onClick={handleCopy}>
+                    ইমেইল কপি করুন
+                  </button>
+                </div>
               </div>
-              <div className="contact-info">
-                <p className="contact-label">ফোন</p>
-                <p className="contact-value">{contactInfo.phone}</p>
+              <div className="office-row">
+                <span className="office-label">ফোন</span>
+                <span className="office-value">{contactInfo.phone}</span>
               </div>
-              <div className="contact-info">
-                <p className="contact-label">অফিস</p>
-                <p className="contact-value">{contactInfo.office}</p>
+              <div className="office-row">
+                <span className="office-label">অফিস</span>
+                <span className="office-value">{contactInfo.office}</span>
               </div>
-              <div className="contact-info">
-                <p className="contact-label">সময়সূচি</p>
-                <p className="contact-value">{contactInfo.hours}</p>
+              <div className="office-row">
+                <span className="office-label">সময়সূচি</span>
+                <span className="office-value">{contactInfo.hours}</span>
               </div>
             </div>
           </div>
