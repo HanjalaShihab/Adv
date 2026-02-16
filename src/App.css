@@ -2048,6 +2048,10 @@
     align-items: flex-start;
   }
 
+  .cases-controls {
+    gap: 16px;
+  }
+
   .stat-item {
     flex-direction: row;
     align-items: center;
@@ -2063,6 +2067,7 @@
   }
 
   .search-input {
+    width: 100%;
     padding: 14px 44px 14px 48px;
   }
 
@@ -2070,6 +2075,7 @@
     overflow-x: auto;
     flex-wrap: nowrap;
     padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .filter-chip {
@@ -2083,9 +2089,6 @@
   .case-card-modern {
     width: 100%;
     max-width: 100%;
-  }
-
-  .case-card-modern {
     padding: 20px;
   }
 
