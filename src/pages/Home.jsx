@@ -116,18 +116,6 @@ function Home() {
         </div>
       </section>
 
-      <section className="cta-banner">
-        <div>
-          <p className="eyebrow">শুরু করতে প্রস্তুত</p>
-          <h2 className="cta-title">গোপনীয় পরামর্শের সময় নির্ধারণ করুন</h2>
-          <p className="cta-subtitle">
-            আপনার বিষয়টি জানান, সামনে এগোনোর পথ স্পষ্ট হবে।
-          </p>
-        </div>
-        <Link className="button" to="/contact">
-          মানিকের সাথে যোগাযোগ
-        </Link>
-      </section>
     </div>
   )
 }
