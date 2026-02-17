@@ -11,9 +11,10 @@ dotenv.config()
 const app = express()
 const port = process.env.PORT || 3001
 
-// CORS configuration - allow any localhost origin in development
-const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1'
-const corsOrigin = process.env.CORS_ORIGIN || (isProduction ? 'https://advmanik.vercel.app' : /^http:\/\/localhost/)
+const configuredCorsOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
 
 const jwtSecret = process.env.JWT_SECRET || 'change-this-secret'
 const adminUsername = process.env.ADMIN_USERNAME || 'manik12345'
@@ -23,7 +24,32 @@ const dbName = process.env.MONGO_DB_NAME || 'advPortfolio'
 const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN || ''
 const telegramChatId = process.env.TELEGRAM_CHAT_ID || ''
 
-app.use(cors({ origin: corsOrigin, credentials: true }))
+const isAllowedOrigin = (origin = '') => {
+  if (!origin) return true
+  if (configuredCorsOrigins.length > 0) {
+    return configuredCorsOrigins.includes(origin)
+  }
+
+  const localhostPattern = /^http:\/\/localhost(?::\d+)?$/
+  const vercelPattern = /^https:\/\/[a-z0-9-]+\.vercel\.app$/i
+  const customDomainPattern = /^https:\/\/([a-z0-9-]+\.)*[a-z0-9-]+\.[a-z]{2,}$/i
+
+  return (
+    localhostPattern.test(origin) ||
+    vercelPattern.test(origin) ||
+    customDomainPattern.test(origin)
+  )
+}
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (isAllowedOrigin(origin)) return callback(null, true)
+      return callback(new Error('Not allowed by CORS'))
+    },
+    credentials: true,
+  }),
+)
 app.use(express.json())
 
 const __filename = fileURLToPath(import.meta.url)
@@ -79,11 +105,15 @@ async function connectToMongoDB() {
     console.error('   1. MONGO_URI is correct in .env')
     console.error('   2. MongoDB Atlas allows connections from your IP')
     console.error('   3. Database user credentials are valid')
-    process.exit(1)
+    db = null
+    casesCollection = null
+    return null
   }
 }
 
 await connectToMongoDB()
+
+const isDatabaseReady = () => Boolean(casesCollection)
 
 const authenticate = (req, res, next) => {
   const authHeader = req.headers.authorization || ''
@@ -116,6 +146,10 @@ app.post('/api/login', (req, res) => {
 })
 
 app.get('/api/cases', async (req, res) => {
+  if (!isDatabaseReady()) {
+    return res.status(503).json({ message: 'Database is temporarily unavailable' })
+  }
+
   try {
     const items = await casesCollection
       .find({})
@@ -136,6 +170,10 @@ app.get('/api/cases', async (req, res) => {
 })
 
 app.post('/api/cases', authenticate, async (req, res) => {
+  if (!isDatabaseReady()) {
+    return res.status(503).json({ message: 'Database is temporarily unavailable' })
+  }
+
   const { title, category, summary, outcome } = req.body || {}
 
   if (!title || !category || !summary || !outcome) {
@@ -162,6 +200,10 @@ app.post('/api/cases', authenticate, async (req, res) => {
 })
 
 app.put('/api/cases/:id', authenticate, async (req, res) => {
+  if (!isDatabaseReady()) {
+    return res.status(503).json({ message: 'Database is temporarily unavailable' })
+  }
+
   const { id } = req.params
   const { title, category, summary, outcome } = req.body || {}
 
@@ -203,6 +245,10 @@ app.put('/api/cases/:id', authenticate, async (req, res) => {
 })
 
 app.delete('/api/cases/:id', authenticate, async (req, res) => {
+  if (!isDatabaseReady()) {
+    return res.status(503).json({ message: 'Database is temporarily unavailable' })
+  }
+
   const { id } = req.params
   
   try {

@@ -58,7 +58,7 @@ Environment variables in `.env`:
 - `JWT_SECRET` - Secret key for JWT tokens
 - `MONGO_URI` - MongoDB Atlas connection string (production only)
 - `MONGO_DB_NAME` - Database name (default: `advPortfolio`)
-- `CORS_ORIGIN` - Frontend URL for CORS
+- `CORS_ORIGIN` - Optional comma-separated frontend origins for strict CORS control
 - `TELEGRAM_BOT_TOKEN` - Telegram bot token used for consultation delivery
 - `TELEGRAM_CHAT_ID` - Telegram chat ID that receives consultation messages
 
