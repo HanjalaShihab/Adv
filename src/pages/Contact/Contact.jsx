@@ -10,7 +10,7 @@ const defaultForm = {
 }
 
 const CONTACT_FORM_ENDPOINT_RAW =
-  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'GZbdmgoX9'
+  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'https://formcarry.com/s/XdJPNtcFxl_'
 const CONTACT_FORM_ENDPOINT = CONTACT_FORM_ENDPOINT_RAW.startsWith('http')
   ? CONTACT_FORM_ENDPOINT_RAW
   : `https://formcarry.com/s/${CONTACT_FORM_ENDPOINT_RAW}`
