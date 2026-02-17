@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { contactInfo, faqs } from '../../data/portfolioData.js'
-import { buildApiUrl } from '../../api.js'
 import './Contact.css'
 
 const defaultForm = {
@@ -9,6 +8,13 @@ const defaultForm = {
   caseType: '',
   message: '',
 }
+
+const CONTACT_FORM_ENDPOINT_RAW =
+  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'GZbdmgoX9'
+const CONTACT_FORM_ENDPOINT = CONTACT_FORM_ENDPOINT_RAW.startsWith('http')
+  ? CONTACT_FORM_ENDPOINT_RAW
+  : `https://formcarry.com/s/${CONTACT_FORM_ENDPOINT_RAW}`
+const CONTACT_FORM_SUBJECT = 'New Consultation Request - Website'
 
 function Contact() {
   const [formValues, setFormValues] = useState(defaultForm)
@@ -29,7 +35,7 @@ function Contact() {
     setStatus('')
 
     try {
-      const response = await fetch(buildApiUrl('/api/consultation'), {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -37,6 +43,9 @@ function Contact() {
         },
         body: JSON.stringify({
           ...formValues,
+          _subject: CONTACT_FORM_SUBJECT,
+          source: 'website-contact-form',
+          _replyto: formValues.email,
         }),
       })
 

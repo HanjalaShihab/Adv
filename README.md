@@ -7,7 +7,7 @@ Multi-page lawyer portfolio built with React, React Router, and MongoDB backend.
 - Classic-elegant design with Bengali localization
 - Practice areas showcase and case highlights
 - Admin panel for managing cases
-- Consultation form sends messages to Telegram bot chat
+- Consultation form sends messages to Formcarry
 - MongoDB database (in-memory for dev, Atlas for production)
 - JWT authentication
 - Responsive design
@@ -59,8 +59,7 @@ Environment variables in `.env`:
 - `MONGO_URI` - MongoDB Atlas connection string (production only)
 - `MONGO_DB_NAME` - Database name (default: `advPortfolio`)
 - `CORS_ORIGIN` - Optional comma-separated frontend origins for strict CORS control
-- `TELEGRAM_BOT_TOKEN` - Telegram bot token used for consultation delivery
-- `TELEGRAM_CHAT_ID` - Telegram chat ID that receives consultation messages
+- `VITE_CONTACT_FORM_ENDPOINT` - Contact form endpoint URL or form key (for Formcarry/Formspree/etc.)
 
 ## Database
 
