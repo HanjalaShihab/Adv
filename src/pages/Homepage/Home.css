@@ -118,6 +118,14 @@
   font-weight: 700;
 }
 
+.hero-title.hero-title-inline .title-line {
+  display: inline;
+}
+
+.hero-title.hero-title-inline .title-line + .title-line {
+  margin-left: 8px;
+}
+
 .title-line {
   display: block;
   color: var(--text);
