@@ -15,8 +15,6 @@ const CONTACT_FORM_ENDPOINT = CONTACT_FORM_ENDPOINT_RAW.startsWith('http')
   ? CONTACT_FORM_ENDPOINT_RAW
   : `https://formcarry.com/s/${CONTACT_FORM_ENDPOINT_RAW}`
 const CONTACT_FORM_SUBJECT = 'New Consultation Request - Website'
-const CONTACT_FORM_API_KEY =
-  import.meta.env.VITE_CONTACT_FORM_API_KEY || 'prb4c37517'
 
 function Contact() {
   const [formValues, setFormValues] = useState(defaultForm)
@@ -42,8 +40,6 @@ function Contact() {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
-          Authorization: `Bearer ${CONTACT_FORM_API_KEY}`,
-          'X-API-Key': CONTACT_FORM_API_KEY,
         },
         body: JSON.stringify({
           ...formValues,

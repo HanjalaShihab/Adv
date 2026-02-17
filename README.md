@@ -60,7 +60,6 @@ Environment variables in `.env`:
 - `MONGO_DB_NAME` - Database name (default: `advPortfolio`)
 - `CORS_ORIGIN` - Frontend URL for CORS
 - `VITE_CONTACT_FORM_ENDPOINT` - Contact form endpoint URL or form key (for Formcarry/Formspree/etc.)
-- `VITE_CONTACT_FORM_API_KEY` - API key used in contact form request headers
 
 ## Database
 
