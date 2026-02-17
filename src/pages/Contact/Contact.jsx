@@ -15,7 +15,8 @@ const CONTACT_FORM_ENDPOINT = CONTACT_FORM_ENDPOINT_RAW.startsWith('http')
   ? CONTACT_FORM_ENDPOINT_RAW
   : `https://formcarry.com/s/${CONTACT_FORM_ENDPOINT_RAW}`
 const CONTACT_FORM_SUBJECT = 'New Consultation Request - Website'
-const ZAPIER_KEY = import.meta.env.VITE_ZAPIER_KEY || 'b506a89b-d9eb-44d9-8216-4ebf31737577'
+const CONTACT_FORM_API_KEY =
+  import.meta.env.VITE_CONTACT_FORM_API_KEY || 'b506a89b-d9eb-44d9-8216-4ebf31737577'
 
 function Contact() {
   const [formValues, setFormValues] = useState(defaultForm)
@@ -41,13 +42,14 @@ function Contact() {
         headers: {
           'Content-Type': 'application/json',
           Accept: 'application/json',
+          Authorization: `Bearer ${CONTACT_FORM_API_KEY}`,
+          'X-API-Key': CONTACT_FORM_API_KEY,
         },
         body: JSON.stringify({
           ...formValues,
           _subject: CONTACT_FORM_SUBJECT,
           source: 'website-contact-form',
           _replyto: formValues.email,
-          zapier_key: ZAPIER_KEY,
         }),
       })
 
