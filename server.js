@@ -20,6 +20,8 @@ const adminUsername = process.env.ADMIN_USERNAME || 'manik12345'
 const adminPassword = process.env.ADMIN_PASSWORD || 'admin12345'
 const mongoUri = process.env.MONGO_URI || 'mongodb+srv://advmanik:advmanik@cluster0.f5iygty.mongodb.net/?retryWrites=true&w=majority'
 const dbName = process.env.MONGO_DB_NAME || 'advPortfolio'
+const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN || ''
+const telegramChatId = process.env.TELEGRAM_CHAT_ID || ''
 
 app.use(cors({ origin: corsOrigin, credentials: true }))
 app.use(express.json())
@@ -211,6 +213,58 @@ app.delete('/api/cases/:id', authenticate, async (req, res) => {
     return res.json({ success: true })
   } catch (error) {
     return res.status(404).json({ message: 'Not found' })
+  }
+})
+
+app.post('/api/consultation', async (req, res) => {
+  const { name = '', email = '', caseType = '', message = '' } = req.body || {}
+
+  const cleanedName = String(name).trim()
+  const cleanedEmail = String(email).trim()
+  const cleanedCaseType = String(caseType).trim()
+  const cleanedMessage = String(message).trim()
+
+  if (!cleanedName || !cleanedEmail || !cleanedMessage) {
+    return res.status(400).json({ message: 'Name, email, and message are required' })
+  }
+
+  if (!telegramBotToken || !telegramChatId) {
+    return res
+      .status(500)
+      .json({ message: 'Telegram is not configured on the server' })
+  }
+
+  try {
+    const text = [
+      'New Consultation Request',
+      `Name: ${cleanedName}`,
+      `Email: ${cleanedEmail}`,
+      `Case Type: ${cleanedCaseType || 'Not provided'}`,
+      '',
+      'Message:',
+      cleanedMessage,
+    ].join('\n')
+
+    const telegramResponse = await fetch(
+      `https://api.telegram.org/bot${telegramBotToken}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: telegramChatId,
+          text,
+        }),
+      },
+    )
+
+    const telegramData = await telegramResponse.json().catch(() => ({}))
+    if (!telegramResponse.ok || telegramData?.ok === false) {
+      return res.status(502).json({ message: 'Failed to deliver message to Telegram' })
+    }
+
+    return res.json({ success: true })
+  } catch (error) {
+    return res.status(500).json({ message: 'Failed to send consultation request' })
   }
 })
 
