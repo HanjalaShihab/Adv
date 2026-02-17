@@ -9,9 +9,13 @@ const defaultForm = {
   message: '',
 }
 
-const FORMSPREE_ENDPOINT =
-  import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/maqdjvbq'
-const FORMSPREE_SUBJECT = 'New Consultation Request - Website'
+const CONTACT_FORM_ENDPOINT_RAW =
+  import.meta.env.VITE_CONTACT_FORM_ENDPOINT || 'GZbdmgoX9'
+const CONTACT_FORM_ENDPOINT = CONTACT_FORM_ENDPOINT_RAW.startsWith('http')
+  ? CONTACT_FORM_ENDPOINT_RAW
+  : `https://formcarry.com/s/${CONTACT_FORM_ENDPOINT_RAW}`
+const CONTACT_FORM_SUBJECT = 'New Consultation Request - Website'
+const ZAPIER_KEY = import.meta.env.VITE_ZAPIER_KEY || 'b506a89b-d9eb-44d9-8216-4ebf31737577'
 
 function Contact() {
   const [formValues, setFormValues] = useState(defaultForm)
@@ -32,7 +36,7 @@ function Contact() {
     setStatus('')
 
     try {
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      const response = await fetch(CONTACT_FORM_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,9 +44,10 @@ function Contact() {
         },
         body: JSON.stringify({
           ...formValues,
-          _subject: FORMSPREE_SUBJECT,
+          _subject: CONTACT_FORM_SUBJECT,
           source: 'website-contact-form',
           _replyto: formValues.email,
+          zapier_key: ZAPIER_KEY,
         }),
       })
 

@@ -7,7 +7,7 @@ Multi-page lawyer portfolio built with React, React Router, and MongoDB backend.
 - Classic-elegant design with Bengali localization
 - Practice areas showcase and case highlights
 - Admin panel for managing cases
-- Consultation form sends messages to Formspree
+- Consultation form sends messages to your configured endpoint (Formcarry/Formspree)
 - MongoDB database (in-memory for dev, Atlas for production)
 - JWT authentication
 - Responsive design
@@ -59,7 +59,8 @@ Environment variables in `.env`:
 - `MONGO_URI` - MongoDB Atlas connection string (production only)
 - `MONGO_DB_NAME` - Database name (default: `advPortfolio`)
 - `CORS_ORIGIN` - Frontend URL for CORS
-- `VITE_FORMSPREE_ENDPOINT` - Formspree form endpoint URL (for consultation form submissions)
+- `VITE_CONTACT_FORM_ENDPOINT` - Contact form endpoint URL or form key (for Formcarry/Formspree/etc.)
+- `VITE_ZAPIER_KEY` - Optional Zapier/Form key sent with contact submissions
 
 ## Database
 
