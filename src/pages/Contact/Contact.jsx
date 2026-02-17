@@ -9,9 +9,14 @@ const defaultForm = {
   message: '',
 }
 
+const FORMSPREE_ENDPOINT =
+  import.meta.env.VITE_FORMSPREE_ENDPOINT || 'https://formspree.io/f/maqdjvbq'
+const FORMSPREE_SUBJECT = 'New Consultation Request - Website'
+
 function Contact() {
   const [formValues, setFormValues] = useState(defaultForm)
   const [status, setStatus] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [activeFaq, setActiveFaq] = useState(null)
 
   const handleChange = (event) => {
@@ -19,11 +24,45 @@ function Contact() {
     setFormValues((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setStatus('✅ অনুরোধ গ্রহণ করা হয়েছে। দুই কর্মদিবসের মধ্যে উত্তর দেওয়া হবে।')
-    setFormValues(defaultForm)
-    setTimeout(() => setStatus(''), 5000)
+    if (isSubmitting) return
+
+    setIsSubmitting(true)
+    setStatus('')
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          ...formValues,
+          _subject: FORMSPREE_SUBJECT,
+          source: 'website-contact-form',
+          _replyto: formValues.email,
+        }),
+      })
+
+      const data = await response.json().catch(() => ({}))
+
+      if (!response.ok) {
+        const errorMessage =
+          data?.errors?.[0]?.message || data?.error || data?.message || 'অনুরোধ পাঠানো যায়নি।'
+        throw new Error(errorMessage)
+      }
+
+      setStatus('✅ অনুরোধ গ্রহণ করা হয়েছে। দুই কর্মদিবসের মধ্যে উত্তর দেওয়া হবে।')
+      setFormValues(defaultForm)
+      setTimeout(() => setStatus(''), 5000)
+    } catch (error) {
+      setStatus(`❌ ${error.message || 'সার্ভারের সাথে যোগাযোগ করা যায়নি।'}`)
+      setTimeout(() => setStatus(''), 6000)
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleCopy = async () => {
@@ -225,8 +264,8 @@ function Contact() {
             </div>
 
             <div className="contact-form-footer">
-              <button type="submit" className="contact-submit-btn">
-                <span>পরামর্শের অনুরোধ পাঠান</span>
+              <button type="submit" className="contact-submit-btn" disabled={isSubmitting}>
+                <span>{isSubmitting ? 'পাঠানো হচ্ছে...' : 'পরামর্শের অনুরোধ পাঠান'}</span>
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M4.16666 10H15.8333M15.8333 10L11.6667 5.83333M15.8333 10L11.6667 14.1667" 
                     stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

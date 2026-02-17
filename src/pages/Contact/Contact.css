@@ -416,9 +416,20 @@
   transition: var(--transition);
 }
 
+.contact-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .contact-submit-btn:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+}
+
+.contact-submit-btn:disabled:hover {
+  transform: none;
+  box-shadow: none;
 }
 
 .contact-submit-btn svg {

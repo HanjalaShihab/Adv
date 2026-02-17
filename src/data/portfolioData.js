@@ -171,7 +171,7 @@ export const faqs = [
 ]
 
 export const contactInfo = {
-  email: 'contact@maniklaw.com',
+  email: 'hanjalashihab1@gmail.com',
   phone: '+৮৮০ ০০০০ ০০০০০০',
   office: 'অফিস ঠিকানা আপডেট হবে',
   hours: 'রবি-বৃহ, ১০:০০ - ১৮:০০',
