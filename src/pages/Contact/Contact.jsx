@@ -16,7 +16,7 @@ const CONTACT_FORM_ENDPOINT = CONTACT_FORM_ENDPOINT_RAW.startsWith('http')
   : `https://formcarry.com/s/${CONTACT_FORM_ENDPOINT_RAW}`
 const CONTACT_FORM_SUBJECT = 'New Consultation Request - Website'
 const CONTACT_FORM_API_KEY =
-  import.meta.env.VITE_CONTACT_FORM_API_KEY || 'b506a89b-d9eb-44d9-8216-4ebf31737577'
+  import.meta.env.VITE_CONTACT_FORM_API_KEY || 'prb4c37517'
 
 function Contact() {
   const [formValues, setFormValues] = useState(defaultForm)
